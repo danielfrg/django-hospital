@@ -1,0 +1,5 @@
+*.pyc
+*.egg-info
+django_hospital/settings/local.py
+django_hospital/settings/local/*
+docs/_build
