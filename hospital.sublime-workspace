@@ -519,6 +519,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "django_hospital/apps/hospital/urls.py",
+			"settings":
+			{
+				"buffer_size": 429,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "django_hospital/apps/hospital/models.py",
+			"settings":
+			{
+				"buffer_size": 3479,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "django_hospital/apps/hospital/admin.py",
+			"settings":
+			{
+				"buffer_size": 422,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "django_hospital/apps/hospital/views.py",
+			"settings":
+			{
+				"buffer_size": 2155,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "Python Virtual env",
 	"command_palette":
@@ -624,8 +656,28 @@
 	},
 	"file_history":
 	[
-		"/home/danielfrg/projects/django-hospital/django_hospital/hospital/urls.py",
+		"/home/danielfrg/projects/django_hospital/fabfile.py",
+		"/home/danielfrg/Videos/The Following/8.srt",
 		"/home/danielfrg/projects/django_hospital/django_hospital/settings/base.py",
+		"/home/danielfrg/.virtualenvs/django/lib/python2.7/site-packages/suit/templates/admin/base.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/templates/admin/base_site.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/templates/base_site.html",
+		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/templates/admin/index.html",
+		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/templates/admin/base.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/urls.py",
+		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/static/suit/less/footer.less",
+		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/django_suit-0.1.7-py2.7.egg-info/installed-files.txt",
+		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/templates/admin/base_site.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/templates/index.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/templates/boilerplate.html",
+		"/home/danielfrg/Downloads/index.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/templates/base.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/templates/500.html",
+		"/home/danielfrg/projects/django_hospital/django_hospital/apps/hospital/urls.py",
+		"/home/danielfrg/projects/django_hospital/django_hospital/settings/local.py",
+		"/home/danielfrg/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/danielfrg/projects/_django-hospital/django_hospital/hospital/settings.py",
+		"/home/danielfrg/projects/django-hospital/django_hospital/hospital/urls.py",
 		"/home/danielfrg/projects/django-hospital/django_hospital/hospital/settings.py",
 		"/home/danielfrg/.virtualenvs/copper/lib/python3.2/site-packages/pandas/tests/test_panel.py",
 		"/home/danielfrg/.virtualenvs/copper/lib/python3.2/site-packages/pandas/tests/test_frame.py",
@@ -731,27 +783,7 @@
 		"/home/dfrodriguez/projects/copper/copper/core/config.py",
 		"/home/dfrodriguez/projects/copper/copper/test/core/ML_1.py",
 		"/home/dfrodriguez/projects/copper/copper/test/core/ML_all.py",
-		"/home/dfrodriguez/projects/copper/copper/test/core/ML.py",
-		"/home/dfrodriguez/projects/copper/copper/core/r.py",
-		"/home/dfrodriguez/projects/copper/copper/test/core/__init__.py",
-		"/home/dfrodriguez/projects/copper/copper/test/core/Dataset.py",
-		"/home/dfrodriguez/projects/copper/README.md",
-		"/home/dfrodriguez/projects/pelican/content/2013-1-31-new-blog-using-jekyll-and-ipython.md",
-		"/home/dfrodriguez/anaconda/fabfile.py",
-		"/home/dfrodriguez/.bash_completion",
-		"/home/dfrodriguez/projects/blog/_source/_utils/fabfile.py",
-		"/home/dfrodriguez/.virtualenvs/pelican/lib/python3.2/site-packages/pelican/__init__.py",
-		"/home/dfrodriguez/projects/copper/setup.py",
-		"/home/dfrodriguez/projects/copper/CHANGES.txt",
-		"/home/dfrodriguez/projects/copper/LICENSE.txt",
-		"/home/dfrodriguez/projects/copper/README.txt",
-		"/home/dfrodriguez/projects/copper/copper/__init__.py",
-		"/home/dfrodriguez/projects/copper/copper/explore/base.py",
-		"/home/dfrodriguez/projects/copper/copper/core/ml.py",
-		"/home/dfrodriguez/projects/copper/copper/core/transform.py",
-		"/home/dfrodriguez/projects/copper/copper/test/CopperTest.py",
-		"/home/dfrodriguez/projects/copper/examples/coursera_data_analysis/assignment1/src/assignment1.py",
-		"/home/dfrodriguez/projects/copper/examples/coursera_data_analysis/assignment1/data/loansData.csv"
+		"/home/dfrodriguez/projects/copper/copper/test/core/ML.py"
 	],
 	"find":
 	{
@@ -769,6 +801,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"user",
+			"User",
+			"user",
+			"new_2",
+			"new",
+			"d.",
+			"d",
+			"D",
+			"d",
+			"faker",
+			"template",
+			"physi",
+			"staff",
+			"model",
+			"_python",
+			"migrate",
 			"template",
 			"test_dropna",
 			"dropna",
@@ -880,23 +928,7 @@
 			"histData",
 			"color",
 			"30",
-			"columnData",
-			"ColumnData",
-			"alert",
-			"ColumnsList",
-			"folders-select",
-			"locations",
-			"test2",
-			"3342",
-			"33 42",
-			"size",
-			"tooltip",
-			"moneyPercentFilter",
-			"categoriesLimitFilter",
-			"classifier",
-			"money",
-			"clf",
-			"add_model"
+			"columnData"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -914,8 +946,117 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "django_hospital/apps/hospital/urls.py",
+					"settings":
+					{
+						"buffer_size": 429,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								423,
+								423
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "django_hospital/apps/hospital/models.py",
+					"settings":
+					{
+						"buffer_size": 3479,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1150,
+								1150
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 287.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "django_hospital/apps/hospital/admin.py",
+					"settings":
+					{
+						"buffer_size": 422,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								205,
+								205
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "django_hospital/apps/hospital/views.py",
+					"settings":
+					{
+						"buffer_size": 2155,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								182,
+								182
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1002,7 +1143,7 @@
 		[
 			[
 				"",
-				"/home/danielfrg/projects/django-hospital/hospital.sublime-project"
+				"/home/danielfrg/projects/copper/copper.sublime-project"
 			],
 			[
 				"blo",

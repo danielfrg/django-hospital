@@ -26,13 +26,17 @@ SECRET_KEY = 'p7qlc+j@)el1xvz$hs257(-4(@h@bcws!0coo1s!a1ooz7v$31'
 
 INSTALLED_APPS = (
     # 'django_hospital.apps.',
+    'django_hospital.apps.hospital',
 
-    #'south',
+    'suit',
+    # 'grappelli',
+    'south',
+    'django_extensions',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
@@ -120,3 +124,7 @@ AUTHENTICATION_BACKENDS += (
 #==============================================================================
 # Third party app settings
 #==============================================================================
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Good Hospital'
+}
