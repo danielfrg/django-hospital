@@ -27,6 +27,8 @@ class PatientAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'ssn')
     list_display = ('first_name', 'last_name', 'email', 'ssn')
 
+# --
+
 class DoctorSpeciality(models.Model):
     specialty = models.CharField(max_length=30, primary_key=True)
 
@@ -54,6 +56,8 @@ class DoctorAdmin(admin.ModelAdmin):
     search_fields = ('user__last_name', )
     list_filter = ('specialty', )
     list_display = ('__unicode__', 'specialty')
+
+# --
 
 class NurseSpeciality(models.Model):
     specialty = models.CharField(max_length=60)
@@ -84,6 +88,8 @@ class NurseAdmin(admin.ModelAdmin):
     list_filter = ('specialty', 'degree')
     list_display = ('__unicode__', 'specialty')
 
+# --
+
 class Visit(models.Model):
     date = models.DateTimeField()
     patient = models.ForeignKey(Patient)
@@ -94,6 +100,7 @@ class VisitAdmin(admin.ModelAdmin):
     list_display = ('patient', 'provider', 'date')
     list_display_links = ('patient', 'provider')
 
+# --
 
 class Medicament(models.Model):
     name = models.CharField(max_length=150)
@@ -105,6 +112,7 @@ class Medicament(models.Model):
 
 class MedicamentsForm( forms.ModelForm ):
     description = forms.CharField( widget=forms.Textarea )
+
     class Meta:
         model = Medicament
 
@@ -123,6 +131,7 @@ class MedPriceAdmin(admin.ModelAdmin):
     search_fields = ('medicament', )
     list_display = ('medicament', 'price', 'date')
 
+# --
 
 class Department(models.Model):
     name = models.CharField(max_length=10)
@@ -132,3 +141,5 @@ class Department(models.Model):
     def __unicode__(self):
         return self.name
 
+class DepartmentAdmin(admin.ModelAdmin):
+    pass

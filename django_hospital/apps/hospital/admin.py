@@ -6,7 +6,7 @@ admin.site.register(Nurse, NurseAdmin)
 admin.site.register(DoctorSpeciality, DoctorSpecialityAdmin)
 admin.site.register(NurseSpeciality, NurseSpecialityAdmin)
 
-admin.site.register(Department)
+admin.site.register(Department, DepartmentAdmin)
 
 admin.site.register(Medicament, MedicamentAdmin)
 admin.site.register(MedPrice, MedPriceAdmin)
