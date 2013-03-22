@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     url(r'^generate/patient$', views.generate_patient),
     url(r'^generate/dbadmin$', views.generate_dbadmin),
     url(r'^generate/groups$', views.generate_groups),
+    url(r'^generate/visit$', views.generate_visit),
+    url(r'^generate/med_price$', views.generate_med_price),
 
     url(r'^generate/meds$', views.generate_meds),
     url(r'^generate/specialities$', views.generate_specialities),

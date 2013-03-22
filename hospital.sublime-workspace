@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"Meda",
+				"Medicament"
+			],
+			[
+				"meda",
+				"Medicament"
+			],
+			[
+				"Doc",
+				"DoctorAdmin"
+			],
+			[
+				"cer",
+				"certification_CHOICES"
+			],
+			[
+				"s",
+				"specialty"
+			],
+			[
+				"sp",
+				"specialities"
+			],
+			[
 				"ty",
 				"Type"
 			],
@@ -490,56 +514,16 @@
 			[
 				"q12_",
 				"q12_amzn"
-			],
-			[
-				"err",
-				"errorfill"
-			],
-			[
-				"order",
-				"orders"
-			],
-			[
-				"test",
-				"testName"
-			],
-			[
-				"np",
-				"np_test"
-			],
-			[
-				"Mul",
-				"MultipleEventTest"
-			],
-			[
-				"returns",
-				"returns"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "django_hospital/apps/hospital/urls.py",
-			"settings":
-			{
-				"buffer_size": 429,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "django_hospital/apps/hospital/models.py",
 			"settings":
 			{
-				"buffer_size": 3479,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "django_hospital/apps/hospital/admin.py",
-			"settings":
-			{
-				"buffer_size": 422,
+				"buffer_size": 4061,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +531,23 @@
 			"file": "django_hospital/apps/hospital/views.py",
 			"settings":
 			{
-				"buffer_size": 2155,
+				"buffer_size": 5194,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "django_hospital/apps/hospital/urls.py",
+			"settings":
+			{
+				"buffer_size": 793,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "django_hospital/apps/hospital/admin.py",
+			"settings":
+			{
+				"buffer_size": 452,
 				"line_ending": "Unix"
 			}
 		}
@@ -656,7 +656,11 @@
 	},
 	"file_history":
 	[
+		"/home/danielfrg/projects/django_hospital/django_hospital/apps/hospital/lists.py",
 		"/home/danielfrg/projects/django_hospital/fabfile.py",
+		"/home/danielfrg/.virtualenvs/django/lib/python2.7/site-packages/django/contrib/auth/admin.py",
+		"/home/danielfrg/.virtualenvs/django/lib/python2.7/site-packages/django/contrib/admin/models.py",
+		"/home/danielfrg/projects/django_hospital/django_hospital/urls.py",
 		"/home/danielfrg/Videos/The Following/8.srt",
 		"/home/danielfrg/projects/django_hospital/django_hospital/settings/base.py",
 		"/home/danielfrg/.virtualenvs/django/lib/python2.7/site-packages/suit/templates/admin/base.html",
@@ -664,7 +668,6 @@
 		"/home/danielfrg/projects/django_hospital/django_hospital/templates/base_site.html",
 		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/templates/admin/index.html",
 		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/templates/admin/base.html",
-		"/home/danielfrg/projects/django_hospital/django_hospital/urls.py",
 		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/static/suit/less/footer.less",
 		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/django_suit-0.1.7-py2.7.egg-info/installed-files.txt",
 		"/home/danielfrg/.virtualenvs/hospital/lib/python2.7/site-packages/suit/templates/admin/base_site.html",
@@ -780,10 +783,7 @@
 		"/home/dfrodriguez/projects/copper/copper/test/core/Dataset_1.py",
 		"/home/dfrodriguez/projects/copper/copper/test/core/all.py",
 		"/home/dfrodriguez/projects/copper/copper/test/core/Dataset_pandas.py",
-		"/home/dfrodriguez/projects/copper/copper/core/config.py",
-		"/home/dfrodriguez/projects/copper/copper/test/core/ML_1.py",
-		"/home/dfrodriguez/projects/copper/copper/test/core/ML_all.py",
-		"/home/dfrodriguez/projects/copper/copper/test/core/ML.py"
+		"/home/dfrodriguez/projects/copper/copper/core/config.py"
 	],
 	"find":
 	{
@@ -801,6 +801,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"doctor",
+			"Doctor",
+			"doctor",
+			"date",
+			"(':))')",
+			"specialities",
+			"patien",
+			"new",
+			"Speci",
+			" ",
+			"  C",
+			" C",
+			"(",
+			"specialities",
+			"new",
 			"user",
 			"User",
 			"user",
@@ -913,22 +928,7 @@
 			"export",
 			"graphs",
 			"TODO",
-			"category",
-			"train",
-			"DataSet",
-			"print",
-			"TODO",
-			"todo",
-			"of",
-			"clf",
-			"nbins",
-			"max",
-			"histogramData",
-			"color",
-			"histData",
-			"color",
-			"30",
-			"columnData"
+			"category"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -951,44 +951,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "django_hospital/apps/hospital/urls.py",
-					"settings":
-					{
-						"buffer_size": 429,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								423,
-								423
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "django_hospital/apps/hospital/models.py",
 					"settings":
 					{
-						"buffer_size": 3479,
+						"buffer_size": 4061,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1150,
-								1150
+								3561,
+								3569
 							]
 						],
 						"settings":
@@ -998,25 +972,53 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 287.0,
+						"translation.y": 1929.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "django_hospital/apps/hospital/admin.py",
+					"buffer": 1,
+					"file": "django_hospital/apps/hospital/views.py",
 					"settings":
 					{
-						"buffer_size": 422,
+						"buffer_size": 5194,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								205,
-								205
+								4658,
+								4658
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2352.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "django_hospital/apps/hospital/urls.py",
+					"settings":
+					{
+						"buffer_size": 793,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								589,
+								589
 							]
 						],
 						"settings":
@@ -1031,25 +1033,23 @@
 				},
 				{
 					"buffer": 3,
-					"file": "django_hospital/apps/hospital/views.py",
+					"file": "django_hospital/apps/hospital/admin.py",
 					"settings":
 					{
-						"buffer_size": 2155,
+						"buffer_size": 452,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								182,
-								182
+								336,
+								336
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

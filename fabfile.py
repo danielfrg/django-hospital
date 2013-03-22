@@ -18,6 +18,7 @@ def runserver():
     local('python manage.py runserver')
 
 def erd():
-    # python manage.py graph_models -a -o myapp_models.png
-    local('python manage.py graph_models -a -e -g -o erd.png')
     # local('python manage.py graph_models -o erd.png hospital')
+    # local('python manage.py graph_models -a -o v.png')
+    local('python manage.py graph_models -a -g -o erd.png')
+    # local('python manage.py graph_models -a -e -g -o erd.png')

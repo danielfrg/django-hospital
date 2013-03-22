@@ -19,7 +19,8 @@ class Migration(SchemaMigration):
         # Adding model 'Medicament'
         db.create_table(u'hospital_medicament', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('quantity', self.gf('django.db.models.fields.IntegerField')()),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=150)),
+            ('grs', self.gf('django.db.models.fields.IntegerField')()),
         ))
         db.send_create_signal(u'hospital', ['Medicament'])
 
@@ -41,15 +42,14 @@ class Migration(SchemaMigration):
 
         # Adding model 'Patient'
         db.create_table(u'hospital_patient', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('ssn', self.gf('django.db.models.fields.CharField')(unique=True, max_length=9)),
+            ('ssn', self.gf('django.db.models.fields.CharField')(max_length=9, primary_key=True)),
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('birthday', self.gf('django.db.models.fields.DateField')()),
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
             ('street', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('state', self.gf('django.db.models.fields.CharField')(max_length=15)),
+            ('city', self.gf('django.db.models.fields.CharField')(max_length=20)),
+            ('state', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('zip_code', self.gf('django.db.models.fields.CharField')(max_length=5)),
             ('gender', self.gf('django.db.models.fields.CharField')(max_length=1)),
         ))
@@ -58,8 +58,7 @@ class Migration(SchemaMigration):
         # Adding model 'NurseSpeciality'
         db.create_table(u'hospital_nursespeciality', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('specialty', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('degree', self.gf('django.db.models.fields.CharField')(max_length=20)),
+            ('specialty', self.gf('django.db.models.fields.CharField')(max_length=60)),
         ))
         db.send_create_signal(u'hospital', ['NurseSpeciality'])
 
@@ -76,13 +75,13 @@ class Migration(SchemaMigration):
         db.create_table(u'hospital_nurse', (
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
             ('specialty', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['hospital.NurseSpeciality'], unique=True)),
+            ('degree', self.gf('django.db.models.fields.CharField')(max_length=30)),
         ))
         db.send_create_signal(u'hospital', ['Nurse'])
 
         # Adding model 'DoctorSpeciality'
         db.create_table(u'hospital_doctorspeciality', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('specialty', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('specialty', self.gf('django.db.models.fields.CharField')(max_length=30, primary_key=True)),
         ))
         db.send_create_signal(u'hospital', ['DoctorSpeciality'])
 
@@ -168,36 +167,35 @@ class Migration(SchemaMigration):
         },
         u'hospital.doctorspeciality': {
             'Meta': {'object_name': 'DoctorSpeciality'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'specialty': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+            'specialty': ('django.db.models.fields.CharField', [], {'max_length': '30', 'primary_key': 'True'})
         },
         u'hospital.medicament': {
             'Meta': {'object_name': 'Medicament'},
+            'grs': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'quantity': ('django.db.models.fields.IntegerField', [], {})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '150'})
         },
         u'hospital.nurse': {
             'Meta': {'object_name': 'Nurse'},
+            'degree': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'specialty': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['hospital.NurseSpeciality']", 'unique': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
         },
         u'hospital.nursespeciality': {
             'Meta': {'object_name': 'NurseSpeciality'},
-            'degree': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'specialty': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+            'specialty': ('django.db.models.fields.CharField', [], {'max_length': '60'})
         },
         u'hospital.patient': {
             'Meta': {'object_name': 'Patient'},
             'birthday': ('django.db.models.fields.DateField', [], {}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'ssn': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '9'}),
-            'state': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'ssn': ('django.db.models.fields.CharField', [], {'max_length': '9', 'primary_key': 'True'}),
+            'state': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'street': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'zip_code': ('django.db.models.fields.CharField', [], {'max_length': '5'})
         },

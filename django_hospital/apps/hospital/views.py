@@ -17,17 +17,22 @@ import random
 from faker import Factory
 from django.contrib.auth.models import User, Group
 from lists import *
+import datetime
 
 def generate(request):
     cnt = ''
     cnt += '<a href="/generate/doctor">doctor</a></br>'
     cnt += '<a href="/generate/nurse">nurse</a></br>'
-    cnt += '<a href="/generate/patient">patient</a></br>'
     cnt += '<a href="/generate/dbadmin">dbadmin</a></br>'
-    cnt += '----------------------------</br>'
+    cnt += '<a href="/generate/patient">patient</a></br>'
+    cnt += '<a href="/generate/visit">visit</a></br>'
+    cnt += '<a href="/generate/med_price">med price</a></br>'
+    cnt += '</br>'
+    cnt += '-------------------------------</br>'
+    cnt += 'After initializing the database</br>'
     cnt += '<a href="/generate/meds">meds</a></br>'
     cnt += '<a href="/generate/specialities">specialities</a></br>'
-    cnt += '<a href="/generate/groups">group</a></br>'
+    cnt += '<a href="/generate/groups">groups</a></br>'
     return HttpResponse(cnt)
 
     url(r'^generate/groups$', views.generate_groups),
@@ -40,59 +45,67 @@ def generate(request):
 def generate_doctor(request):
     fake = Factory.create()
     first_name = fake.firstName()
-    email = fake.companyEmail()
-    user = User.objects.create_user(first_name, email, 'doctor-pass')
+    last_name = fake.lastName()
+    username = first_name + '.' + last_name
+    email = username + '@goodhospital.com'
+    user = User.objects.create_user(username, email, 'doctor-pass')
     user.first_name = first_name
-    user.last_name = fake.lastName()
+    user.last_name = last_name
     user.is_staff = True
 
     g = Group.objects.get(name='Doctor') 
     g.user_set.add(user)
-    user.save()
 
     new = Doctor()
     new.user = user
     specialities = DoctorSpeciality.objects.all()
     new.specialty = specialities[int(random.random() * len(specialities))]
     new.certification = 'A' if random.random() > 0.5 else 'B'
+
+    user.save()
     new.save()
     return HttpResponse(':)')
 
 def generate_nurse(request):
     fake = Factory.create()
     first_name = fake.firstName()
-    email = fake.companyEmail()
-    user = User.objects.create_user(first_name, email, 'nurse-pass')
+    last_name = fake.lastName()
+    username = first_name + '.' + last_name
+    email = username + '@goodhospital.com'
+    user = User.objects.create_user(username, email, 'nurse-pass')
     user.first_name = first_name
-    user.last_name = fake.lastName()
+    user.last_name = last_name
     user.is_staff = True
 
     g = Group.objects.get(name='Nurse') 
     g.user_set.add(user)
-    user.save()
 
     new = Nurse()
     new.user = user
     specialities = NurseSpeciality.objects.all()
     new.specialty = specialities[int(random.random() * len(specialities))]
     new.degree = 'A' if random.random() > 0.5 else 'AD'
+
+    user.save()
     new.save()
     return HttpResponse(':)')
 
 def generate_dbadmin(request):
     fake = Factory.create()
     first_name = fake.firstName()
-    email = fake.companyEmail()
-    new = User.objects.create_user(first_name, email, 'admin-pass')
-    new.first_name = first_name
-    new.last_name = fake.lastName()
-    new.is_staff = True
-    new.is_superuser = True
+    last_name = fake.lastName()
+    username = first_name + '.' + last_name
+    email = username + '@goodhospital.com'
+    user = User.objects.create_user(username, email, 'admin-pass')
+    user.first_name = first_name
+    user.last_name = fake.lastName()
+    user.is_staff = True
+    user.is_superuser = True
 
-    g = Group.objects.get(name='DBAdmin') 
-    g.user_set.add(new)
+    g = Group.objects.get(name='DB Admin') 
+    g.user_set.add(user)
     
-    new.save()
+    user.save()
     return HttpResponse(':)')
 
 def generate_patient(request):
@@ -112,21 +125,49 @@ def generate_patient(request):
     new.save()
     return HttpResponse(':)')
 
+def generate_visit(request):
+    patients = Patient.objects.all()
+    patient = patients[int(random.random() * len(patients))]
+
+    doctors = Doctor.objects.all()
+    doctor = doctors[int(random.random() * len(doctors))]
+
+    visit = Visit()
+    visit.patient = patient
+    visit.provider = doctor
+    visit.date = datetime.datetime.now()
+    visit.save()
+    return HttpResponse(':)')
+
 def generate_meds(request):
+    fake = Factory.create()
     for m in meds:
         new = Medicament()
         new.name = m
-        new.grs = int(random.random() * 100)
+        new.grs = int(random.random() * 100) + 5
+        new.description = fake.paragraph()
         new.save()
-    return HttpResponse(':))')
+    return HttpResponse(':)')
+
+def generate_med_price(request):
+    meds = Medicament.objects.all()
+    med = meds[int(random.random() * len(meds))]
+    price = MedPrice()
+    price.date = datetime.datetime.now()
+    price.medicament = med
+    price.price = random.random() * 100 + 10
+    price.save()
+
+    return HttpResponse(':)')
+
 
 def generate_groups(request):
-    groups = ['Doctor', 'Nurse', 'Admin', 'Tech']
+    groups = ['Doctor', 'Head Doctor', 'Nurse', 'Head Nurse', 'Sales', 'DB Admin']
     for g in groups:
         new = Group()
         new.name = g
         new.save()
-    return HttpResponse(':))')
+    return HttpResponse(':)')
 
 def generate_specialities(request):
     for sp in doctor_specialities:
@@ -139,4 +180,4 @@ def generate_specialities(request):
         s.specialty = sp
         s.save()
 
-    return HttpResponse(':))')
+    return HttpResponse(':)')
