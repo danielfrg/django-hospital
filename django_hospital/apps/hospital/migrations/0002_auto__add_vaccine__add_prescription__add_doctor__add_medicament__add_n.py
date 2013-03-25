@@ -8,10 +8,31 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Vaccine'
+        db.create_table(u'hospital_vaccine', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('live', self.gf('django.db.models.fields.NullBooleanField')(null=True, blank=True)),
+            ('absorved', self.gf('django.db.models.fields.NullBooleanField')(null=True, blank=True)),
+            ('inactivated', self.gf('django.db.models.fields.NullBooleanField')(null=True, blank=True)),
+            ('oral', self.gf('django.db.models.fields.NullBooleanField')(null=True, blank=True)),
+        ))
+        db.send_create_signal(u'hospital', ['Vaccine'])
+
+        # Adding model 'Prescription'
+        db.create_table(u'hospital_prescription', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('visit', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Visit'])),
+            ('medicament', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Medicament'])),
+            ('quantity', self.gf('django.db.models.fields.IntegerField')()),
+            ('length', self.gf('django.db.models.fields.IntegerField')()),
+        ))
+        db.send_create_signal(u'hospital', ['Prescription'])
+
         # Adding model 'Doctor'
         db.create_table(u'hospital_doctor', (
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
-            ('specialty', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['hospital.DoctorSpeciality'], unique=True)),
+            ('specialty', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.DoctorSpeciality'])),
             ('certification', self.gf('django.db.models.fields.CharField')(max_length=30)),
         ))
         db.send_create_signal(u'hospital', ['Doctor'])
@@ -20,34 +41,25 @@ class Migration(SchemaMigration):
         db.create_table(u'hospital_medicament', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=150)),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('grs', self.gf('django.db.models.fields.IntegerField')()),
         ))
         db.send_create_signal(u'hospital', ['Medicament'])
 
-        # Adding model 'Department'
-        db.create_table(u'hospital_department', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('director', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+        # Adding model 'Nurse'
+        db.create_table(u'hospital_nurse', (
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('specialty', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['hospital.NurseSpeciality'], unique=True)),
+            ('degree', self.gf('django.db.models.fields.CharField')(max_length=30)),
         ))
-        db.send_create_signal(u'hospital', ['Department'])
-
-        # Adding M2M table for field staff on 'Department'
-        db.create_table(u'hospital_department_staff', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('department', models.ForeignKey(orm[u'hospital.department'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
-        ))
-        db.create_unique(u'hospital_department_staff', ['department_id', 'user_id'])
+        db.send_create_signal(u'hospital', ['Nurse'])
 
         # Adding model 'Patient'
         db.create_table(u'hospital_patient', (
-            ('ssn', self.gf('django.db.models.fields.CharField')(max_length=9, primary_key=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('ssn', self.gf('django.db.models.fields.CharField')(unique=True, max_length=9)),
             ('birthday', self.gf('django.db.models.fields.DateField')()),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
-            ('street', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('street', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('city', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('state', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('zip_code', self.gf('django.db.models.fields.CharField')(max_length=5)),
@@ -65,19 +77,47 @@ class Migration(SchemaMigration):
         # Adding model 'Visit'
         db.create_table(u'hospital_visit', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('date', self.gf('django.db.models.fields.DateField')()),
+            ('date', self.gf('django.db.models.fields.DateTimeField')()),
             ('patient', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Patient'])),
-            ('provider', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Doctor'])),
+            ('doctor', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Doctor'])),
+            ('comments', self.gf('django.db.models.fields.CharField')(max_length=2000)),
         ))
         db.send_create_signal(u'hospital', ['Visit'])
 
-        # Adding model 'Nurse'
-        db.create_table(u'hospital_nurse', (
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
-            ('specialty', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['hospital.NurseSpeciality'], unique=True)),
-            ('degree', self.gf('django.db.models.fields.CharField')(max_length=30)),
+        # Adding model 'VaccineApplied'
+        db.create_table(u'hospital_vaccineapplied', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('vaccine', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Vaccine'])),
+            ('patient', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Patient'])),
+            ('nurse', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Nurse'])),
         ))
-        db.send_create_signal(u'hospital', ['Nurse'])
+        db.send_create_signal(u'hospital', ['VaccineApplied'])
+
+        # Adding model 'MedPrice'
+        db.create_table(u'hospital_medprice', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('medicament', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hospital.Medicament'])),
+            ('price', self.gf('django.db.models.fields.IntegerField')()),
+        ))
+        db.send_create_signal(u'hospital', ['MedPrice'])
+
+        # Adding model 'Department'
+        db.create_table(u'hospital_department', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=10)),
+            ('director', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+        ))
+        db.send_create_signal(u'hospital', ['Department'])
+
+        # Adding M2M table for field staff on 'Department'
+        db.create_table(u'hospital_department_staff', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('department', models.ForeignKey(orm[u'hospital.department'], null=False)),
+            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
+        ))
+        db.create_unique(u'hospital_department_staff', ['department_id', 'user_id'])
 
         # Adding model 'DoctorSpeciality'
         db.create_table(u'hospital_doctorspeciality', (
@@ -87,17 +127,20 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        # Deleting model 'Vaccine'
+        db.delete_table(u'hospital_vaccine')
+
+        # Deleting model 'Prescription'
+        db.delete_table(u'hospital_prescription')
+
         # Deleting model 'Doctor'
         db.delete_table(u'hospital_doctor')
 
         # Deleting model 'Medicament'
         db.delete_table(u'hospital_medicament')
 
-        # Deleting model 'Department'
-        db.delete_table(u'hospital_department')
-
-        # Removing M2M table for field staff on 'Department'
-        db.delete_table('hospital_department_staff')
+        # Deleting model 'Nurse'
+        db.delete_table(u'hospital_nurse')
 
         # Deleting model 'Patient'
         db.delete_table(u'hospital_patient')
@@ -108,8 +151,17 @@ class Migration(SchemaMigration):
         # Deleting model 'Visit'
         db.delete_table(u'hospital_visit')
 
-        # Deleting model 'Nurse'
-        db.delete_table(u'hospital_nurse')
+        # Deleting model 'VaccineApplied'
+        db.delete_table(u'hospital_vaccineapplied')
+
+        # Deleting model 'MedPrice'
+        db.delete_table(u'hospital_medprice')
+
+        # Deleting model 'Department'
+        db.delete_table(u'hospital_department')
+
+        # Removing M2M table for field staff on 'Department'
+        db.delete_table('hospital_department_staff')
 
         # Deleting model 'DoctorSpeciality'
         db.delete_table(u'hospital_doctorspeciality')
@@ -162,7 +214,7 @@ class Migration(SchemaMigration):
         u'hospital.doctor': {
             'Meta': {'object_name': 'Doctor'},
             'certification': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'specialty': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['hospital.DoctorSpeciality']", 'unique': 'True'}),
+            'specialty': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.DoctorSpeciality']"}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
         },
         u'hospital.doctorspeciality': {
@@ -171,9 +223,17 @@ class Migration(SchemaMigration):
         },
         u'hospital.medicament': {
             'Meta': {'object_name': 'Medicament'},
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'grs': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '150'})
+        },
+        u'hospital.medprice': {
+            'Meta': {'object_name': 'MedPrice'},
+            'date': ('django.db.models.fields.DateTimeField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'medicament': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Medicament']"}),
+            'price': ('django.db.models.fields.IntegerField', [], {})
         },
         u'hospital.nurse': {
             'Meta': {'object_name': 'Nurse'},
@@ -190,21 +250,45 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Patient'},
             'birthday': ('django.db.models.fields.DateField', [], {}),
             'city': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'ssn': ('django.db.models.fields.CharField', [], {'max_length': '9', 'primary_key': 'True'}),
+            'ssn': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '9'}),
             'state': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'street': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'street': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'}),
             'zip_code': ('django.db.models.fields.CharField', [], {'max_length': '5'})
+        },
+        u'hospital.prescription': {
+            'Meta': {'object_name': 'Prescription'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'length': ('django.db.models.fields.IntegerField', [], {}),
+            'medicament': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Medicament']"}),
+            'quantity': ('django.db.models.fields.IntegerField', [], {}),
+            'visit': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Visit']"})
+        },
+        u'hospital.vaccine': {
+            'Meta': {'object_name': 'Vaccine'},
+            'absorved': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'inactivated': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
+            'live': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'oral': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'hospital.vaccineapplied': {
+            'Meta': {'object_name': 'VaccineApplied'},
+            'date': ('django.db.models.fields.DateTimeField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nurse': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Nurse']"}),
+            'patient': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Patient']"}),
+            'vaccine': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Vaccine']"})
         },
         u'hospital.visit': {
             'Meta': {'object_name': 'Visit'},
-            'date': ('django.db.models.fields.DateField', [], {}),
+            'comments': ('django.db.models.fields.CharField', [], {'max_length': '2000'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {}),
+            'doctor': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Doctor']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'patient': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Patient']"}),
-            'provider': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Doctor']"})
+            'patient': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['hospital.Patient']"})
         }
     }
 

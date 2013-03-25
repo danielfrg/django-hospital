@@ -4,11 +4,9 @@ from django.db import models
 from django import forms
 
 class Patient(models.Model):
-    ssn = models.CharField(max_length=9, primary_key=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    user = models.OneToOneField(User, primary_key=True)
+    ssn = models.CharField(max_length=9, unique=True)
     birthday = models.DateField()
-    email = models.EmailField()
     street = models.CharField(max_length=50)
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
@@ -21,11 +19,12 @@ class Patient(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
 
     def __unicode__(self):
-        return self.first_name + " " + self.last_name
+        return self.user.first_name + ' ' + self.user.last_name
 
 class PatientAdmin(admin.ModelAdmin):
-    search_fields = ('first_name', 'ssn')
-    list_display = ('first_name', 'last_name', 'email', 'ssn')
+    raw_id_fields = ('user',)
+    search_fields = ('user__first_name', 'user__last_name', 'user__ssn')
+    list_display = ('__unicode__', 'birthday', 'ssn', )
 
 # --
 
@@ -49,11 +48,11 @@ class Doctor(models.Model):
     certification = models.CharField(max_length=30, choices=certification_CHOICES)
 
     def __unicode__(self):
-        return self.user.first_name + " " + self.user.last_name
+        return self.user.first_name + ' ' + self.user.last_name
 
 class DoctorAdmin(admin.ModelAdmin):
-    raw_id_fields = ("user",)
-    search_fields = ('user__last_name', )
+    raw_id_fields = ('user',)
+    search_fields = ('user__first_name', 'user__last_name', )
     list_filter = ('specialty', )
     list_display = ('__unicode__', 'specialty')
 
@@ -80,25 +79,13 @@ class Nurse(models.Model):
     degree = models.CharField(max_length=30, choices=degree_CHOICES)
 
     def __unicode__(self):
-        return self.user.first_name + " " + self.user.last_name
+        return self.user.first_name + ' ' + self.user.last_name
 
 class NurseAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     search_fields = ('user__first_name', )
     list_filter = ('specialty', 'degree')
     list_display = ('__unicode__', 'specialty')
-
-# --
-
-class Visit(models.Model):
-    date = models.DateTimeField()
-    patient = models.ForeignKey(Patient)
-    provider = models.ForeignKey(Doctor)
-
-class VisitAdmin(admin.ModelAdmin):
-    raw_id_fields = ('patient', 'provider')
-    list_display = ('patient', 'provider', 'date')
-    list_display_links = ('patient', 'provider')
 
 # --
 
@@ -111,7 +98,7 @@ class Medicament(models.Model):
         return self.name
 
 class MedicamentsForm( forms.ModelForm ):
-    description = forms.CharField( widget=forms.Textarea )
+    description = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = Medicament
@@ -126,10 +113,55 @@ class MedPrice(models.Model):
     medicament = models.ForeignKey(Medicament)
     price = models.IntegerField()
 
+    def __unicode__(self):
+        return '%s (%s)' % (self.medicament.name, self.date)
+
 class MedPriceAdmin(admin.ModelAdmin):
     raw_id_fields = ('medicament', )
     search_fields = ('medicament', )
     list_display = ('medicament', 'price', 'date')
+
+# --
+
+class Visit(models.Model):
+    date = models.DateTimeField()
+    patient = models.ForeignKey(Patient)
+    doctor = models.ForeignKey(Doctor)
+    comments = models.CharField(max_length=2000)
+
+    def __unicode__(self):
+        return '%s | by  %s (%s)' % (self.patient, self.doctor, self.date)
+
+class VisitForm(forms.ModelForm):
+    comments = forms.CharField(widget=forms.Textarea)
+
+    class Meta:
+        model = Visit
+
+class VisitAdmin(admin.ModelAdmin):
+    search_fields = ('patient__first_name', 'patient__last_name', 'doctor__user__first_name', 'doctor__user__last_name')
+    raw_id_fields = ('patient', 'doctor')
+    list_display = ('patient', 'doctor', 'date')
+    list_display_links = ('patient', 'doctor')
+    form = VisitForm
+
+# --
+
+class Prescription(models.Model):
+    visit = models.ForeignKey(Visit)
+    medicament = models.ForeignKey(Medicament)
+    quantity = models.IntegerField()
+    length = models.IntegerField()
+
+    def __unicode__(self):
+        return '%s | Prescribed by: %s (%s)' % (self.visit.patient, self.visit.doctor, self.visit.date)
+
+class PrescriptionAdmin(admin.ModelAdmin):
+    search_fields = ('medicament__name', 'visit__patient__last_name', 'visit__patient__first_name', 
+                    'visit__doctor__user__last_name', 'visit__doctor__user__first_name')
+    raw_id_fields = ('visit', 'medicament', )
+    list_display = ('visit', 'medicament', 'quantity', 'length')
+    # list_display_links = ('patient', 'medicament', 'doctor')
 
 # --
 
@@ -142,4 +174,41 @@ class Department(models.Model):
         return self.name
 
 class DepartmentAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('staff', )
+
+# --
+
+class Vaccine(models.Model):
+    name = models.CharField(max_length=100)
+    live = models.NullBooleanField()
+    absorved = models.NullBooleanField()
+    inactivated = models.NullBooleanField()
+    oral = models.NullBooleanField()
+
+    def __unicode__(self):
+        return self.name
+
+class VaccineAdmin(admin.ModelAdmin):
+    search_fields = ('name', )
+    list_display = ('name', 'live', 'absorved', 'inactivated', 'oral')
+    list_filter = ('live', 'absorved', 'inactivated', 'oral', )
+
+class VaccineApplied(models.Model):
+    date = models.DateTimeField()
+    vaccine = models.ForeignKey(Vaccine)
+    patient = models.ForeignKey(Patient)
+    nurse = models.ForeignKey(Nurse)
+    
+    def __unicode__(self):
+        return '%s | by  %s (%s)' % (self.patient, self.nurse, self.date)
+
+class VaccineAppliedAdmin(admin.ModelAdmin):
+    search_fields = ('vaccine__name', 'patient__user__last_name', 'patient__user__first_name', 
+                'nurse__user__last_name', 'nurse__user__first_name')
+    list_display = ('patient', 'nurse', 'vaccine', 'date')
+    raw_id_fields = ('patient', 'nurse', 'vaccine', )
+    list_display_links = ('patient', 'nurse',)
+
+
+
+

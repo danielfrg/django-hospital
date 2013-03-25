@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Vis",
+				"VisitForm"
+			],
+			[
 				"Meda",
 				"Medicament"
 			],
@@ -510,10 +514,6 @@
 			[
 				"q",
 				"q15_amzn"
-			],
-			[
-				"q12_",
-				"q12_amzn"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "django_hospital/apps/hospital/models.py",
 			"settings":
 			{
-				"buffer_size": 4061,
+				"buffer_size": 5045,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,7 +531,7 @@
 			"file": "django_hospital/apps/hospital/views.py",
 			"settings":
 			{
-				"buffer_size": 5194,
+				"buffer_size": 5727,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +539,7 @@
 			"file": "django_hospital/apps/hospital/urls.py",
 			"settings":
 			{
-				"buffer_size": 793,
+				"buffer_size": 762,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +547,15 @@
 			"file": "django_hospital/apps/hospital/admin.py",
 			"settings":
 			{
-				"buffer_size": 452,
+				"buffer_size": 527,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "fabfile.py",
+			"settings":
+			{
+				"buffer_size": 773,
 				"line_ending": "Unix"
 			}
 		}
@@ -801,6 +809,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\"",
+			"DB",
 			"doctor",
 			"Doctor",
 			"doctor",
@@ -926,9 +936,7 @@
 			"copper.config",
 			"figures",
 			"export",
-			"graphs",
-			"TODO",
-			"category"
+			"graphs"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -946,7 +954,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -954,15 +962,15 @@
 					"file": "django_hospital/apps/hospital/models.py",
 					"settings":
 					{
-						"buffer_size": 4061,
+						"buffer_size": 5045,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3561,
-								3569
+								2497,
+								2498
 							]
 						],
 						"settings":
@@ -972,7 +980,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1929.0,
+						"translation.y": 1149.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -982,15 +990,15 @@
 					"file": "django_hospital/apps/hospital/views.py",
 					"settings":
 					{
-						"buffer_size": 5194,
+						"buffer_size": 5727,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4658,
-								4658
+								3966,
+								3966
 							]
 						],
 						"settings":
@@ -1000,7 +1008,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2352.0,
+						"translation.y": 2204.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1010,15 +1018,43 @@
 					"file": "django_hospital/apps/hospital/urls.py",
 					"settings":
 					{
-						"buffer_size": 793,
+						"buffer_size": 762,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								589,
-								589
+								350,
+								350
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "django_hospital/apps/hospital/admin.py",
+					"settings":
+					{
+						"buffer_size": 527,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								436,
+								436
 							]
 						],
 						"settings":
@@ -1032,24 +1068,26 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "django_hospital/apps/hospital/admin.py",
+					"buffer": 4,
+					"file": "fabfile.py",
 					"settings":
 					{
-						"buffer_size": 452,
+						"buffer_size": 773,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								336,
-								336
+								676,
+								676
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

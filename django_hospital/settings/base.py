@@ -126,5 +126,5 @@ AUTHENTICATION_BACKENDS += (
 #==============================================================================
 
 SUIT_CONFIG = {
-    'ADMIN_NAME': 'Good Hospital'
+    'ADMIN_NAME': 'Do It Yourself Hospital'
 }
