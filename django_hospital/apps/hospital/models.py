@@ -34,6 +34,9 @@ class DoctorSpeciality(models.Model):
     def __unicode__(self):
         return self.specialty
 
+    class Meta:
+        verbose_name_plural = 'Doctors specialties'
+
 class DoctorSpecialityAdmin(admin.ModelAdmin):
     search_fields = ('specialty', )
 
@@ -53,8 +56,8 @@ class Doctor(models.Model):
 class DoctorAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     search_fields = ('user__first_name', 'user__last_name', )
-    list_filter = ('specialty', )
-    list_display = ('__unicode__', 'specialty')
+    list_filter = ('specialty', 'certification')
+    list_display = ('__unicode__', 'specialty', 'certification')
 
 # --
 
@@ -64,12 +67,15 @@ class NurseSpeciality(models.Model):
     def __unicode__(self):
         return self.specialty
 
+    class Meta:
+        verbose_name_plural = 'Nurses specialties'
+
 class NurseSpecialityAdmin(admin.ModelAdmin):
     search_fields = ('specialty', )
 
 class Nurse(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    specialty = models.OneToOneField(NurseSpeciality)
+    specialty = models.ForeignKey(NurseSpeciality)
     degree_CHOICES = (
         ('A', 'Associate Degree in Nursing'),
         ('D', 'Diploma in Nursing'),
@@ -116,10 +122,14 @@ class MedPrice(models.Model):
     def __unicode__(self):
         return '%s (%s)' % (self.medicament.name, self.date)
 
+    class Meta:
+        verbose_name_plural = 'Medicaments Prices'
+
 class MedPriceAdmin(admin.ModelAdmin):
     raw_id_fields = ('medicament', )
     search_fields = ('medicament', )
     list_display = ('medicament', 'price', 'date')
+    list_filter = ('date', )
 
 # --
 
@@ -130,7 +140,7 @@ class Visit(models.Model):
     comments = models.CharField(max_length=2000)
 
     def __unicode__(self):
-        return '%s | by  %s (%s)' % (self.patient, self.doctor, self.date)
+        return '%s by  %s' % (self.patient, self.doctor)
 
 class VisitForm(forms.ModelForm):
     comments = forms.CharField(widget=forms.Textarea)
@@ -156,24 +166,33 @@ class Prescription(models.Model):
     def __unicode__(self):
         return '%s | Prescribed by: %s (%s)' % (self.visit.patient, self.visit.doctor, self.visit.date)
 
+    def patient(self):
+        return self.visit.patient
+
+    def doctor(self):
+        return self.visit.patient
+
 class PrescriptionAdmin(admin.ModelAdmin):
     search_fields = ('medicament__name', 'visit__patient__last_name', 'visit__patient__first_name', 
                     'visit__doctor__user__last_name', 'visit__doctor__user__first_name')
     raw_id_fields = ('visit', 'medicament', )
-    list_display = ('visit', 'medicament', 'quantity', 'length')
-    # list_display_links = ('patient', 'medicament', 'doctor')
+    list_display = ('patient', 'doctor', 'medicament', 'quantity', 'length')
+    list_display_links = ('patient', 'doctor', 'medicament')
 
 # --
 
 class Department(models.Model):
-    name = models.CharField(max_length=10)
-    director = models.OneToOneField(User)
+    name = models.CharField(max_length=50)
+    director = models.ForeignKey(User, null=True)
     staff = models.ManyToManyField(User, related_name='+')
 
     def __unicode__(self):
         return self.name
 
 class DepartmentAdmin(admin.ModelAdmin):
+    search_fields = ('name', 'director__last_name', 'director__first_name',)
+    list_display = ('name', 'director', )
+    raw_id_fields = ('director', )
     filter_horizontal = ('staff', )
 
 # --
@@ -201,6 +220,9 @@ class VaccineApplied(models.Model):
     
     def __unicode__(self):
         return '%s | by  %s (%s)' % (self.patient, self.nurse, self.date)
+
+    class Meta:
+        verbose_name_plural = 'Vaccines usage'
 
 class VaccineAppliedAdmin(admin.ModelAdmin):
     search_fields = ('vaccine__name', 'patient__user__last_name', 'patient__user__first_name', 

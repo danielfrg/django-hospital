@@ -38,6 +38,7 @@ def generate(request):
     cnt += '<a href="/generate/specialities">specialities</a></br>'
     cnt += '<a href="/generate/meds">meds</a></br>'
     cnt += '<a href="/generate/vaccines">vaccines</a></br>'
+    cnt += '<a href="/generate/departments">departments</a></br>'
     return HttpResponse(cnt)
 
     url(r'^generate/groups$', views.generate_groups),
@@ -242,6 +243,27 @@ def generate_vaccine_applied(request):
     new.save()
     return HttpResponse(':)')
 
+def generate_departments(request):
+    fake = Factory.create()
+    for department in departments:
+        new = Department()
+        new.name = department
+        new.save()
+    return HttpResponse(':)')
+
 def assign_doctors(request):
-    pass
+    departments = Department.objects.all()
+    doctors = Doctor.objects.all()
+    nurses = Nurse.objects.all()
+
+    for department in departments:
+        department.director = doctors[int(random.random() * len(doctors))].user
+        department.staff.clear()
+        department.save()
+    for doctor in doctors:
+        department = departments[int(random.random() * len(departments))]
+        department.staff.add(doctor.user)
+    for nurse in nurses:
+        department = departments[int(random.random() * len(departments))]
+        department.staff.add(nurse.user)
     return HttpResponse(':)')

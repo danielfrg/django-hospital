@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^generate/specialities/$', views.generate_specialities),
     url(r'^generate/meds/$', views.generate_meds),
     url(r'^generate/vaccines/$', views.generate_vaccines),
+    url(r'^generate/departments/$', views.generate_departments),
     url(r'^generate/$', views.generate),
 )
 
